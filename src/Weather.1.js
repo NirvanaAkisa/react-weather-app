@@ -4,16 +4,24 @@ import "./Weather.css";
 
 
 export default function Weather() {
-  const [ready, setReady] = useState(false);
-  const [temperature, setTemperature] = useState(null);
+  const [weatherData, setWeatherData] = useState({ready: false});
   function handleResponse(response) {
     console.log(response.data);
-    setTemperature(response.data.main.temp);
-    setReady(true);
+    setWeatherData({
+    ready: true,
+    temperature: response.data.main.temp,
+    humidity: response.data.main.humidity,
+    date: "Wednesday 07:00",
+    wind: response.data.wind.speed,
+    description: response.data.weather[0].description,
+    iconUrl: "https://ssl.gstatic.com/onebox/weather/64/partly_cloudy.png",
+    city: response.data.name
+  });
+
 }
 
 
-  if (ready) {
+  if (weatherData.ready) {
     return (
       <div className="Weather">
         <form>
@@ -35,21 +43,21 @@ export default function Weather() {
             </div>
           </div>
         </form>
-        <h1>Pretoria</h1>
+        <h1>{weatherData.city}</h1>
         <ul>
-          <li>Wednesday 07:00</li>
-          <li>Partly cloudy</li>
+          <li>{weatherData.date}</li>
+          <li className="text-capitalize">{weatherData.description}</li>
         </ul>
         <div className="row mt-3">
           <div className="col-6">
             <div className="d-flex weather-temperature">
               <img
-                src="https://ssl.gstatic.com/onebox/weather/64/partly_cloudy.png"
-                alt="Partly cloudy"
+                src={weatherData.iconUrl}
+                alt={weatherData.description}
                 className="float-left"
               />
               <div className="float-left">
-                <span className="temperature">{Math.round(temperature)}</span>
+                <span className="temperature">{Math.round(weatherData.temperature)}</span>
                 <span className="unit">°C</span>
               </div>
             </div>
@@ -57,9 +65,8 @@ export default function Weather() {
 
           <div className="col-6">
             <ul>
-              <li>Precipitation:6%</li>
-              <li>Humidity:72%</li>
-              <li>Wind:13km/h</li>
+              <li>Humidity:{weatherData.humidity}%</li>
+              <li>Wind:{weatherData.wind}km/h</li>
             </ul>
           </div>
         </div>
