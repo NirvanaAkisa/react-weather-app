@@ -9,7 +9,7 @@ export default function App() {
         <Weather defaultCity="Pretoria" />
       <footer> 
         This project was coded by Nirvana Sekoala and is {" "}
-        <a href="https://github.com/NirvanaAkisa/react-weather-app" target="_blank" rel="norefferer">
+        <a href="https://github.com/NirvanaAkisa/react-weather-app" >
           open-sourced on GitHub
         </a> 
         </footer>
