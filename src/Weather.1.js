@@ -1,12 +1,12 @@
 import React, {useState} from "react";
 import axios from "axios";
-import "./WeatherInfo";
+import FormattedDate from "./FormattedDate";
 import "./Weather.css";
 import WeatherInfo from "./WeatherInfo";
 
 
 export default function Weather(props) {
-  const [ setCity] = useState(props.defaultCity);
+  const [city, setCity] = useState(props.defaultCity);
   const [weatherData, setWeatherData] = useState({ready: false});
   
   function handleResponse(response) {
@@ -18,7 +18,7 @@ export default function Weather(props) {
     date: new Date(response.data.dt * 1000),
     wind: response.data.wind.speed,
     description: response.data.weather[0].description,
-    iconUrl: "https://ssl.gstatic.com/onebox/weather/64/partly_cloudy.png",
+    iconUrl: `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`,
     city: response.data.name
   });
 
